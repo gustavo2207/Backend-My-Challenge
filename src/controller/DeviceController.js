@@ -17,7 +17,11 @@ module.exports = {
         const { category_name } = req.params;
         const { color, partNumber } = req.body;
 
-        const isExist = await Device.findOne({part_number: partNumber});
+        const isExist = await Device.findOne({
+            where: {
+                part_number: partNumber
+            }
+        });
 
         if(isExist) return res.status(409).json({error: "part number already exists"})
 
