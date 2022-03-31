@@ -6,7 +6,8 @@ module.exports = {
 
         const device = await Device.findAll({
             include: {
-                association:"category"
+                association:"category",
+                attributes: ["name"]
             }
         })
 
