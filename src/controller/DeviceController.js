@@ -40,21 +40,21 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const {part_number} = req.params;
+        const {partNumber} = req.params;
 
         const device = await Device.findOne({
             where: {
-                part_number: part_number
+                part_number: partNumber
             }
         });
 
         if(!device) return res.status(404).json({
-            error: `No one devices has this part number: ${part_number}`
+            error: `No one devices has this part number: ${partNumber}`
         })
 
         await Device.destroy({
             where: {
-                part_number: part_number
+                part_number: partNumber
             }
         });
 
