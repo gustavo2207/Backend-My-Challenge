@@ -1,49 +1,45 @@
-const Category = require("../model/Category")
+const categoryService = require("../services/CategoryService")
 
 module.exports = {
     async index(req, res){
-        const category = await Category.findAll();
+        console.clear()
+        console.info("Category: the index was called")
+
+        const category = await categoryService.getAll()
         return res.json(category)
     },
 
     async store(req, res){
-        const {name} = req.body;
+        console.clear()
+        console.info("Category: the insert category was called")
 
-        const isExist = await Category.findOne({
-            where: {
-                name: name
-            }
-        })
+        const {name} = req.body;
         
         if(!name) return res.status(400).json({error: "Category not insert"});
 
-        if(isExist) return res.status(409).json({error: "Category already exists"})
+        const isExist = await categoryService.getOne(name)
 
-        console.log(name)
+        if(isExist) return res.status(409).json({error: "Category already exists"})
         
-        const category = await Category.create({name: name});
+        const category = await categoryService.insert(name)
 
         return res.json(category)
     },
 
     async delete(req, res) {
+        console.clear()
+        console.info("Category: the delete category was called")
+
         const {categoryName} = req.params;
 
-        const category = await Category.findOne({
-            where: {
-                name: categoryName
-            }
-        })
+        const category = await categoryService.getOne(categoryName)
 
         if(!category) return res.status(400).json({
             error: "The category do not exists"
         })
 
-        await Category.destroy({
-            where: {
-                name: categoryName
-            }
-        })
+        await categoryService.delete(categoryName)
+        
         return res.status(200).json({message: "Category removed"})
     }
 }
