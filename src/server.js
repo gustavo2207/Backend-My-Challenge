@@ -9,13 +9,12 @@ require("./database");
 const app = express();
 
 app.use((req, res, next) => {
+  cookieParser();
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  app.use(cors());
-  app.use(cookieParser());
-  app.use(express.json());
-  app.use(routes);
+  cors();
+  express.json();
   next();
 });
-
+app.use(routes);
 app.listen(3333);
