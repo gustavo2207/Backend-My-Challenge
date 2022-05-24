@@ -12,6 +12,7 @@ module.exports = {
   async store(req, res) {
     console.clear();
     console.info("Category: the insert category was called");
+    console.log(req.body)
 
     const { name } = req.body;
 

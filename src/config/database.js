@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 module.exports = {
   dialect: "mysql",
-  host: "mysqlserver.cnrgtg2a5fub.us-east-1.rds.amazonaws.com",
-  username: "admin",
-  port: "3306",
-  password: "admin1234",
-  database: "datamychallenge",
+  host: process.env.DB_HOST,
+  username: process.env.DB_USERNAME,
+  port: process.env.DB_PORT,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE,
   define: {
     timestamps: true,
     underscored: true,
@@ -15,7 +17,7 @@ module.exports = {
   host: "localhost",
   username: "root",
   port: "3306",
-  password: "espiaodaCiA572@",
+  password: "",
   database: "datamychallenge",
   define: {
     timestamps: true,
